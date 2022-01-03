@@ -9,8 +9,20 @@ const Gameoverscreen = props => {
                 <Text style={styles.bigText}>
                     Game Over!
                 </Text>
-                <Text>
+                {/* <Text>
                     Succeeded in guessing {props.userNumber} after {props.rounds} rounds.
+                </Text> */}
+                <Text>
+                    Number guessed:  
+                    <Text style={{fontWeight: 'bold'}}>
+                        {props.userNumber}
+                    </Text>
+                </Text>
+                <Text>
+                    Rounds played:  
+                    <Text style={{fontWeight: 'bold'}}>
+                        {props.rounds}
+                    </Text>
                 </Text>
             </View>
             <View>

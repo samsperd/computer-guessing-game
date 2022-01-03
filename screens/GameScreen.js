@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {View, StyleSheet, Text, Button, Alert} from 'react-native';
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
+import colors from '../constants/colors';
 
 // This is the recursive game logic
 const generateRandomBetween = (min, max, exclude) => {
@@ -45,7 +46,7 @@ const GameScreen = props => {
     // This sets the computer's guess based on the direction or indicted hints given by the user
     const nextGuessHandler = direction => {
         if ((direction === 'lower' && currentGuess < props.userChoice) || (direction === 'greater' && currentGuess > props.userChoice)) {
-            Alert.alert('Don\'t Lie!', 'You know that this is wrong...', [{
+            Alert.alert('Referee\'s flagged', 'Don\'t Lie! You know that this is wrong...', [{
                 text: 'Sorry!',
                 style: 'cancel'
             }]);
@@ -65,14 +66,17 @@ const GameScreen = props => {
     return (
         <View style={styles.gamescreen}>
             <Text>
-                Opponent's Guess
+                Computer's Guess
             </Text>
             <NumberContainer>
                 {currentGuess}
             </NumberContainer>
-            <Card style={styles.buttonContainer}>
-                <Button title="Lower" onPress={nextGuessHandler.bind(this, 'lower')} ></Button>
-                <Button title="Greater" onPress={nextGuessHandler.bind(this, 'greater')} ></Button>
+            <Card style={styles.cardContainer}>
+                <Text style={styles.cardText}>Hint me... </Text>
+                <View style={styles.buttonContainer}>
+                    <Button title="Lower?" onPress={nextGuessHandler.bind(this, 'lower')} color={colors.primary} ></Button>
+                    <Button title="Greater?" onPress={nextGuessHandler.bind(this, 'greater')} color={colors.primary} ></Button>
+                </View>
             </Card>
         </View>
     );
@@ -84,10 +88,16 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center'
     },
+    cardContainer: {
+        marginTop: 20,
+    },
+    cardText: {
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 20,
         maxWidth: '80%',
         width: 300,
     }
